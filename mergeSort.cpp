@@ -9,9 +9,18 @@ using namespace std;
 //    merge the two halves by comparing the elements of the two halves
 
 
+void merge(int* array, int left, int mid, int right){ 
+    //the idea of merge
+    // 1. we know the left, mid, and right index of the array
+    // 2. we declare indexL and indexR which are the indices that have lowest value of each array
+    // 3. we compare the value of the indexLV and indexRV and put the smaller value into the array
+    // 4. we increase the indexL or indexR by 1
+    // 5. we need of course a variable that indicates the index of the array that we are going to put the value
+}
 
 
-void mergeSort(int* array, int left, int right) {
+
+void mergeSort(int* array, int left, int right) { // I want it to be in-place sorting
 
     if (left >= right) { // when left >= right, there is only one element, which means we have to merge
         //cout << array[left] << endl; => for debuging purpose
@@ -21,8 +30,7 @@ void mergeSort(int* array, int left, int right) {
     int mid = (left + right) / 2;
     mergeSort(array, left, mid);
     mergeSort(array, mid + 1, right);
-    //merge(array, left, mid, right);
-
+    merge(array, left, mid, right);
 }
 
 int main() {
