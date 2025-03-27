@@ -7,6 +7,7 @@ using namespace std;
 // However, the limitation of array requires me to use heap memory
 // => I will use vector instead of array
 
+
 void insertionSort(vector<int>& array, int num) { // call by reference
 
     int len = array.size();
