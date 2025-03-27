@@ -28,7 +28,7 @@ void merge(int* array, int left, int mid, int right){ // ascedning order
 
     // I considered the possibility of in-place implementation, but it is impossible because it overwrites the original value of the array
     while (indexL <= mid && indexR <= right) {
-        if (array[indexL] < array[indexR]) {
+        if (array[indexL] <= array[indexR]) { // for stable sorting, we have to put the left value first
             tempArray[wheretoPut] = array[indexL];
             indexL++;
         } else {
