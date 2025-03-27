@@ -9,36 +9,46 @@ using namespace std;
 //    merge the two halves by comparing the elements of the two halves
 
 
-void merge(int* array, int left, int mid, int right){ 
+void merge(int* array, int left, int mid, int right){ // ascedning order
     //the idea of merge
     // 0. we need of course a variable that indicates the index of the array that we are going to put the value
     // 1. we know the left, mid, and right index of the array
     // 2. we declare indexL and indexR which are the indices that have lowest value of each array
-    int wheretoPut = left;
+    int tempArray[right - left + 1];
+    int wheretoPut = 0;
     int indexL = left;
     int indexR = mid + 1;
+
     // 3. we compare the value of the indexLV and indexRV and put the smaller value into the array
     // 4. we increase the indexL or indexR by 1
+
+    // 5. results are screwed up => because we have to consider the change in the array....
+    //    Like, if we change the value of indexL then, the original value has gone.
+    //    So, i want to make another variable holding the original value of the array in that index
+
+    // I considered the possibility of in-place implementation, but it is impossible because it overwrites the original value of the array
     while (indexL <= mid && indexR <= right) {
         if (array[indexL] < array[indexR]) {
-            array[wheretoPut] = array[indexL];
+            tempArray[wheretoPut] = array[indexL];
             indexL++;
         } else {
-            array[wheretoPut] = array[indexR];
+            tempArray[wheretoPut] = array[indexR];
             indexR++;
         }
         wheretoPut++;
     }
-    
     while (indexL <= mid) {
-        array[wheretoPut] = array[indexL];
+        tempArray[wheretoPut] = array[indexL];
         indexL++;
         wheretoPut++;
     }
     while (indexR <= right) {
-        array[wheretoPut] = array[indexR];
+        tempArray[wheretoPut] = array[indexR];
         indexR++;
         wheretoPut++;
+    }
+    for (int i = 0; i < wheretoPut; i++) {
+        array[left + i] = tempArray[i];
     }
 }
 
