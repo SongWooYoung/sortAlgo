@@ -19,9 +19,11 @@ void bubbleSort(vector<int>& array) { // ascending order
     // in the end, the smallest element goes to the first index
     size_t len = array.size();
     //cout << array << endl;
-    for (size_t i = 0; i < len-1; i++) {
-        if (array[i] > array[i+1]) {
-            swap(array[i], array[i+1]);
+    for (size_t j = 0; j < len; j++) {
+        for (size_t i = 0; i < len-1; i++) {
+            if (array[i] > array[i+1]) {
+                swap(array[i], array[i+1]);
+            }
         }
     }
     //cout << array << endl;
