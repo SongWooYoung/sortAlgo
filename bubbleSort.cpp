@@ -10,6 +10,25 @@ ostream& operator<<(ostream& os, vector<int>& array) {
     return os;
 }
 
+void bubbleSort(vector<int>& array) { // ascending order
+    // Time Complexity : O(n^2)
+    // change two elements => current and next element
+    // bigger one goes to the right
+    // at first completion, the largest element goes to the last index
+    // at second completion, the second largest element goes to the second last index
+    // in the end, the smallest element goes to the first index
+    size_t len = array.size();
+    //cout << array << endl;
+    for (size_t i = 0; i < len-1; i++) {
+        if (array[i] > array[i+1]) {
+            swap(array[i], array[i+1]);
+        }
+    }
+    //cout << array << endl;
+}
+
+
+
 
 
 int main() {
@@ -35,9 +54,6 @@ int main() {
     cout << array5 << endl;
 
     cout << endl;
-
-
-
 
     return 0;
 }
