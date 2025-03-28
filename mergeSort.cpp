@@ -65,16 +65,3 @@ void mergeSort(int* array, int left, int right) { // I want it to be in-place so
     mergeSort(array, mid + 1, right);
     merge(array, left, mid, right);
 }
-
-int main() {
-
-    int array[10] = {1, 3, 5, 7, 9, 2, 4, 6, 8, 10};
-
-    mergeSort(array, 0, 9);
-
-    for (int i = 0; i < 10; i++) {
-        cout << array[i] << " ";
-    }
-
-    return 0;
-}

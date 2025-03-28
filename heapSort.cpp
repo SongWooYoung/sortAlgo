@@ -4,13 +4,6 @@
 
 using namespace std;
 
-ostream& operator<<(ostream& os, vector<int>& array) {
-    for (size_t i = 0; i < array.size(); i++) {
-        os << array[i] << " ";
-    }
-    return os;
-}
-
 void heapify(vector<int>& array, size_t i, size_t len) { // i must not be 0 and index of leaf node
     if (i >= array.size()) return;
     
@@ -59,31 +52,4 @@ void heapSort(vector<int>& array) {
     }
 // 4. repeat 3 and 4 until the array is sorted
 
-}
-
-int main() {
-
-    vector<int> array = {INT_MAX, 1, -1, 9, 6, 8, 7, -4, 50, 8, 10};
-    vector<int> array1 = {INT_MAX, 1, 2, 3, 4, 5};
-    vector<int> array2 = {INT_MAX, 7, 7, 7, 7, 7, 7};
-    vector<int> array3 = {INT_MAX, 3, 2, 1, 0, -1, 99};
-    vector<int> array4 = {INT_MAX, 4, -5, 0, 4, 4, -10, 20, 3};
-    vector<int> array5 = {INT_MAX, 2, 1, 3};
-    heapSort(array);
-    heapSort(array1);
-    heapSort(array2);
-    heapSort(array3);
-    heapSort(array4);
-    heapSort(array5);
-
-    cout << array << endl;
-    cout << array1 << endl;
-    cout << array2 << endl;
-    cout << array3 << endl;
-    cout << array4 << endl;
-    cout << array5 << endl;
-
-    cout << endl;
-
-    return 0;
 }

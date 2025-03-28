@@ -6,3 +6,5 @@ LDFLAGS += $(SANFLAGS)
 
 clean:
 	rm -f all *.out *.o main core
+
+	

@@ -21,20 +21,3 @@ void insertionSort(vector<int>& array, int num) { // call by reference
 
     // previous code unnecessarily used if statement
 }
-
-int main() {
-
-    int array[10] = {1, -1, 9, 6, 8, 7, -4, 50, 8, 10};
-    vector<int> testArray = {};
-    
-    for (int i = 0; i < 10; i++) {
-        insertionSort(testArray, array[i]);
-    }
-
-    for (int i = 0; i < 10; i++) {
-        cout << testArray[i] << " ";
-    }
-
-    return 0;
-
-}
