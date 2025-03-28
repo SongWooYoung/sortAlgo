@@ -33,6 +33,9 @@ void maxHeapify(vector<int>& array, size_t index) {
 } 
 
 void heapSort(vector<int>& array) {
+    // add sentinel
+    array.insert(array.begin(), INT_MAX);
+
 // Heap Sort : make array into a heap and then sort it.
 // Time Complexity : O(nlogn)
 // 1. build max heap => asceding order, min heap => descending order
@@ -52,4 +55,5 @@ void heapSort(vector<int>& array) {
     }
 // 4. repeat 3 and 4 until the array is sorted
 
+    array.erase(array.begin());
 }
