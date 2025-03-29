@@ -29,8 +29,8 @@ void insert(vector<pair<int, char>>& array, size_t num, size_t lastIndex) {
                 wheretoPut++;
             } //현재 wheretoPut은 빈곳 위치를 담음
             array.at(wheretoPut).second = 'O';
-            for (size_t i = wheretoPut-1; i < currentIdx; i--) {
-                array.at(i+1) = array.at(i);
+            for (size_t j = wheretoPut-1; j > currentIdx; j--) {
+                array.at(j+1) = array.at(j);
             }
             array.at(currentIdx).first = array.at(lastIndex + i).first;
         }
