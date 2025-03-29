@@ -37,6 +37,28 @@ void insert(vector<pair<int, char>>& array, size_t num, size_t lastIndex) {
     } 
 }
 
+void rebalancing(vector<pair<int, char>>& array, size_t lastIndex) {
+    // lastIndex부터 빈칸을 lastindex+1개 만큼 만들어줌
+    // lastIndex-1의 원소부터 내려가면서 second가 'O'면 index 두배에 집어넣기
+    for (size_t i = 0; i< lastIndex+1; i++) {
+        array.insert(array.begin()+lastIndex, make_pair<int, char>(0,'X'));
+    }
+    for (size_t i = lastIndex-1; i > 0; i++) {
+        if (array.at(i).second == 'O') {
+            array.at(2 * i).first       = array.at(i).first;
+            array.at(2 * i).second      = 'O';
+            array.at(i).second          = 'X';
+        } 
+    }
+}
+
+void deleteBlank(vector<pair<int, char>>& array) {
+    size_t len =array.size();
+    for (size_t i = 0 ; i < len; i++){
+        if (array.at(i).second = 'X') array.erase(array.begin()+i);
+    }
+}
+
 void librarySort(vector<pair<int, char>>& array) {
     size_t len = array.size();
     size_t NumbersofNextInput = 1;
@@ -46,9 +68,9 @@ void librarySort(vector<pair<int, char>>& array) {
             insert(array, (NumbersofNextInput<<1) - NumbersofNextInput, lastIndex);
             break;
         }
-        insert(array, NumbersofNextInput, 0);
-        rebalancing(array);
-        lastIndex           = NumbersofNextInput + lastIndex; // 현재 정렬된 개수수
+        insert(array, NumbersofNextInput, lastIndex);
+        rebalancing(array, lastIndex);
+        lastIndex           = NumbersofNextInput + lastIndex; // 현재 정렬된 개수
         NumbersofNextInput  = NumbersofNextInput << 1;
     }
     deleteBlank(array);
@@ -63,11 +85,9 @@ int main() {
         arr.push_back(make_pair(array.at(i), 'O'));
     }
 
-    librarySort(array);
+    librarySort(arr);
 
     cout << array << endl;
-
-
 
     return 0;
 }
