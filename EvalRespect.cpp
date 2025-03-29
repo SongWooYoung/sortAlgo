@@ -22,6 +22,10 @@ namespace fs = std::filesystem;
 #include "TSort.cpp"
 
 // 정렬 래퍼 함수
+void TSort_wrapper(vector<int>& v) {
+    v = lazyTournamentSort(v);
+}
+
 void quickSort_wrapper(vector<int>& v) {
     if (!v.empty()) quickSort(v, 0, v.size() - 1);
 }
@@ -92,7 +96,7 @@ int main() {
         {"mergeSort", mergeSort_wrapper},
         {"quickSort", quickSort_wrapper},
         {"selectionSort", selectionSort},
-        {"TSort", lazyTournamentSortOptimized}
+        {"TSort", TSort_wrapper}
     };
 
     string algo, fileChoice;
