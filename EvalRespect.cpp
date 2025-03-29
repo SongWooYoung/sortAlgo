@@ -19,6 +19,7 @@ namespace fs = std::filesystem;
 #include "mergeSort.cpp"
 #include "quickSort.cpp"
 #include "selectionSort.cpp"
+#include "TSort.cpp"
 
 // 정렬 래퍼 함수
 void quickSort_wrapper(vector<int>& v) {
@@ -90,7 +91,8 @@ int main() {
         {"insertionSort", insertionSort_wrapper},
         {"mergeSort", mergeSort_wrapper},
         {"quickSort", quickSort_wrapper},
-        {"selectionSort", selectionSort}
+        {"selectionSort", selectionSort},
+        {"TSort", lazyTournamentSortOptimized}
     };
 
     string algo, fileChoice;
@@ -125,8 +127,6 @@ int main() {
         cerr << "❌ '" << fileChoice << "'을(를) 포함하는 파일을 찾을 수 없습니다.\n";
         return 1;
     }
-
-    
 
     cout << "\n📊 Evaluation for [" << algo << "] on files matching '" << fileChoice << "':\n";
     cout << left << setw(16) << "Algorithm"
