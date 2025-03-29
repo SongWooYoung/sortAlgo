@@ -41,42 +41,7 @@ int tournamentPhase(vector<Node>& array) {
 }
 
 vector<int> TSort(vector<Node> array) {
-    vector<int> sorted;
 
-    while (!array.empty()) {
-        // 토너먼트 트리에서 최소값 인덱스 찾기
-        int winnerIndex = tournamentPhase(array);
-        int minValue = array[winnerIndex].key;
-        sorted.push_back(minValue);
-
-        // winner의 history를 순차 비교하여 다음 후보 찾기
-        vector<int> candidates = array[winnerIndex].history;
-        array.erase(array.begin() + winnerIndex); // 최소값 제거
-
-        for (int i = 0; i < candidates.size(); ++i) {
-            // 삭제로 인해 인덱스가 밀렸을 수 있으므로 보정
-            if (candidates[i] > winnerIndex) {
-                candidates[i] -= 1;
-            }
-        }
-
-        // history 후보군으로 새 array 재구성
-        vector<Node> newArray;
-        for (int idx : candidates) {
-            newArray.push_back(array[idx]);
-        }
-
-        // 나머지 요소들 추가
-        for (int i = 0; i < array.size(); ++i) {
-            if (find(candidates.begin(), candidates.end(), i) == candidates.end()) {
-                newArray.push_back(array[i]);
-            }
-        }
-
-        array = newArray;
-    }
-
-    return sorted;
 }
 
 
