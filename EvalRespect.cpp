@@ -21,6 +21,7 @@ namespace fs = std::filesystem;
 #include "selectionSort.cpp"
 #include "TSort.cpp"
 #include "combSort.cpp"
+#include "CSSort.cpp"
 
 // 정렬 래퍼 함수
 void TSort_wrapper(vector<int>& v) {
@@ -102,7 +103,8 @@ int main() {
         {"quickSort", quickSort_wrapper},
         {"selectionSort", selectionSort},
         {"TSort", TSort_wrapper},
-        {"combSort", combSort}
+        {"combSort", combSort},
+        {"CSSort", CSSort}
     };
 
     string algo, fileChoice;

@@ -41,7 +41,8 @@ int tournamentPhase(vector<Node>& array) {
 }
 
 vector<int> TSort(vector<Node> array) {
-
+    vector<int> arr;
+    return arr;
 }
 
 
