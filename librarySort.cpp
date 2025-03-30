@@ -3,6 +3,57 @@
 #include <algorithm>
 
 using namespace std;
+size_t binarySearch(const vector<pair<int, char>>& array, size_t *lastIndex, int input) {
+    size_t left = 0, right = *lastIndex;
+
+    while (left < right) {
+        size_t mid = (left + right) / 2;
+
+        // Skip 'X' by checking nearest valid 'O'
+        size_t midValid = mid;
+        bool found = false;
+
+        if (array[mid].second == 'X') {
+            // Search left
+            size_t l = mid;
+            while (l > left) {
+                l--;
+                if (array[l].second == 'O') {
+                    midValid = l;
+                    found = true;
+                    break;
+                }
+            }
+
+            // Search right if left failed
+            if (!found) {
+                size_t r = mid;
+                while (r + 1 < right) {
+                    r++;
+                    if (array[r].second == 'O') {
+                        midValid = r;
+                        found = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!found) {
+                // 전체가 빈칸이면 그냥 삽입 지점 반환
+                return left;
+            }
+        } else {
+            midValid = mid;
+        }
+
+        if (array[midValid].first < input)
+            left = midValid + 1;
+        else
+            right = midValid;
+    }
+    return left;
+}
+
 
 void insert(vector<pair<int, char>>& array, size_t num, size_t* lastIndex) { // array(정렬된 부분분) 크기 안변함
     // array는 현재 rebalancing이 된 상태라 가정
@@ -10,43 +61,36 @@ void insert(vector<pair<int, char>>& array, size_t num, size_t* lastIndex) { // 
 
     size_t n = num;
     while(n > 0) {
-        // 중간으로 이동(?), 빈공간이면 좌측으로 만날때까지 내려가자
-        // => 채워진 자리의 원소가 주어진 값보다 크다면, 계속 내려가서 나보다 작은 값을 만나는 위치확인
-        // 그 위치의 옆자리가 공백이면 채우고, 공백이 아니라면 옆에 애를 빈칸을 만날때까지 밈
-        // => 채워진 자리의 원소가 주어진 값보다 작으면 오른쪽으로 이동해서 커지는 순간을 확인
+
         int input = array.at(*lastIndex).first;
-        size_t currentIdx = (*lastIndex)/2;
-        //나중에 이진탐색으로 고쳐야함함
-        while((int) currentIdx >= 0 &&
-            (array.at(currentIdx).first > input || array.at(currentIdx).second == 'X')) {
-            currentIdx--;
-        }
-        //////////////////////////
-        if (array.at(currentIdx + 1).second == 'X') {
-            array.at(currentIdx + 1) = {input, 'O'};
+        //cout << "FUCK YOU" << endl;
+        size_t currentIdx = binarySearch(array, lastIndex, input);
+
+        if (array.at(currentIdx).second == 'X') {
+            array.at(currentIdx) = {input, 'O'};
         }
         else {
-            currentIdx++;
-            size_t wheretoPut = currentIdx;
-            while(array.at(wheretoPut).second == 'O') {
+            size_t wheretoPut = currentIdx+1;
+            while(true) {
                 if (wheretoPut == *lastIndex - 1) {
-                    array.insert(array.begin() + wheretoPut, make_pair(0, 'O'));
+                    array.insert(array.begin() + wheretoPut, make_pair(0, 'X'));
                     *lastIndex = *lastIndex + 1;
                     break;
                 }
+                if (array.at(wheretoPut).second == 'X') break;
                 wheretoPut++;
-            } //현재 wheretoPut은 빈곳 위치를 담음
+            } 
             array.at(wheretoPut).second = 'O';
-            // 이런 좋은 함수가 ㄷㄷ..
             rotate(array.begin() + currentIdx, array.begin() + wheretoPut, array.begin() + wheretoPut + 1);
             array.at(currentIdx).first = input;
         }
         array.erase(array.begin() + (int)(*lastIndex));
+
+        // for (size_t i = 0; i < *lastIndex; i++) {
+        //     cout <<"(" <<array.at(i).first<< ", " << array.at(i).second << ")";
+        // }
+        // cout << endl;
         n--;
-        for (size_t i = 0; i < *lastIndex; i++) {
-            cout <<"(" <<array.at(i).first<< ", " << array.at(i).second << ")";
-        }
-        cout << endl;
     }
 }
 
@@ -63,19 +107,19 @@ void rebalancing(vector<pair<int, char>>& array, size_t* lastIndex) {
     for (size_t i = 0; i < *lastIndex+1; i++) {
         array.insert(array.begin()+*lastIndex, make_pair<int, char>(0,'X'));
     }
-    for (int i = (int)(*lastIndex) - 1; i >= 0; i++) {
+    for (int i = (int) *lastIndex; i > 0; i--) {
         if (array.at(i).second == 'O') {
-            array.at(2 * i).first       = array.at(i).first;
-            array.at(2 * i).second      = 'O';
-            array.at(i).second          = 'X';
-        } 
+            array.at(2 * i).first   = array.at(i).first;
+            array.at(2 * i).second  = 'O';
+            array.at(i).second      = 'X';
+            array.at(i).first       =  0;
+        }
     }
     *lastIndex = *lastIndex * 2 + 1;
 }
 
 void deleteBlank(vector<pair<int, char>>& array) {
-    size_t len = array.size();
-    for (size_t i = 0; i < len; ) {
+    for (size_t i = 0; i < array.size(); ) {
         if (array[i].second == 'X') {
             array.erase(array.begin() + i);
         } else {
@@ -89,20 +133,26 @@ void librarySort(vector<pair<int, char>>& array) {
     size_t lastIndex = 0; // 정렬된 부분의 array 크기 추적
     while (true) {
         if (lastIndex == 0) {
+            cout << "first" << endl;
             lastIndex++;
             rebalancing(array, &lastIndex);
             NumbersofNextInput  = NumbersofNextInput << 1;
-
             continue;
         }
-        if (NumbersofNextInput < lastIndex && (NumbersofNextInput << 1) > lastIndex) {
-            size_t remainingInputs = array.size() - lastIndex;
+        size_t remainingInputs = array.size() - lastIndex;
+        if (NumbersofNextInput > remainingInputs) {
+            cout << "LAST" << endl;
             insert(array, remainingInputs, &lastIndex);
             break;
         }
+        cout << "WeAre PLAYING" << endl;
         insert(array, NumbersofNextInput, &lastIndex);
+        cout << "After insertion" << endl;
         rebalancing(array, &lastIndex);
+        cout << "After rebal" << endl;
         NumbersofNextInput  = NumbersofNextInput << 1;
+        cout << "After increaseNNI" << endl;
+
     }
     deleteBlank(array);
 }
@@ -113,17 +163,57 @@ ostream& operator<<(ostream& os, const vector<pair<int, char>> array) {
     return os;
 }
 
-int main() {
-    
-    vector<int> array = {1, -1, 9, 6, 8, 7, -4, 50, 8, 10};
-    vector<pair<int, char>> arr;
-    for (size_t i = 0; i < array.size(); i++) {
-        arr.push_back(make_pair(array[i], 'O'));
+#include <random>   // modern C++ random
+using namespace std;
+
+vector<int> generateRandomNumbers(int count, int minVal = 0, int maxVal = 9999) {
+    vector<int> result;
+    result.reserve(count);
+
+    // 랜덤 엔진 및 분포 설정
+    random_device rd;                         // 시드
+    mt19937 gen(rd());                        // Mersenne Twister 엔진
+    uniform_int_distribution<> dist(minVal, maxVal); // 균등 분포
+
+    for (int i = 0; i < count; ++i) {
+        result.push_back(dist(gen));
     }
 
-    librarySort(arr);
+    return result;
+}
 
-    cout << arr << endl;
+int main() {
+    
+    vector<int> array = generateRandomNumbers(1000);
+
+    vector<pair<int, char>> arr1;
+    for (size_t i = 0; i < array.size(); i++) {
+        arr1.push_back(make_pair(array[i], 'O'));
+    }
+
+    librarySort(arr1);
+    cout << arr1 << endl;
+    cout << "=================================================================================================" << endl;
+
+    vector<int> data = {
+        100, 199, 298, 397, 496, 595, 694, 793, 892, 991,
+        1090, 1189, 1288, 1387, 1486, 1585, 1684, 1783, 1882, 1981,
+        2080, 2179, 2278, 2377, 2476, 2575, 2674, 2773, 2872, 2971,
+        3070, 3169, 3268, 3367, 3466, 3565, 3664, 3763, 3862, 3961,
+        4060, 4159, 4258, 4357, 4456, 4555, 4654, 4753, 4852, 4951,
+        5050, 5149, 5248, 5347, 5446, 5545, 5644, 5743, 5842, 5941,
+        6040, 6139, 6238, 6337, 6436, 6535, 6634, 6733, 6832, 6931,
+        7030, 7129, 7228, 7327, 7426, 7525, 7624, 7723, 7822, 7921,
+        8020, 8119, 8218, 8317, 8416, 8515, 8614, 8713, 8812, 8911,
+        9010, 9109, 9208, 9307, 9406, 9505, 9604, 9703, 9802, 9901,
+    };
+    vector<pair<int, char>> arr2;
+    for (size_t i = 0; i < data.size(); i++) {
+        arr2.push_back(make_pair(data[i], 'O'));
+    }
+    librarySort(arr2);
+
+    cout << arr2 << endl;
 
     return 0;
 }

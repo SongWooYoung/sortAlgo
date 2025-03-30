@@ -23,6 +23,7 @@ namespace fs = std::filesystem;
 #include "combSort.cpp"
 #include "CSSort.cpp"
 #include "introSort.cpp"
+#include "librarySort.cpp"
 
 // 정렬 래퍼 함수
 void TSort_wrapper(vector<int>& v) {
@@ -31,6 +32,18 @@ void TSort_wrapper(vector<int>& v) {
         array.push_back({val, {}});
     }
     v = TSort(array);
+}
+
+void libSort_wrapper(vector<int>& v) {
+    vector<pair<int, char>> arr;
+    for (size_t i = 0; i < v.size(); i++) {
+        cout << v[i] << endl;
+        arr.push_back(make_pair(v[i], 'O'));
+    }
+    librarySort(arr);
+    for (size_t i = 0; i < arr.size(); i++) {
+        v.at(i) = arr.at(i).first;
+    }
 }
 
 void quickSort_wrapper(vector<int>& v) {
@@ -106,7 +119,8 @@ int main() {
         {"TSort", TSort_wrapper},
         {"combSort", combSort},
         {"CSSort", CSSort},
-        {"introSort", introSort}
+        {"introSort", introSort},
+        {"libSort", libSort_wrapper}
     };
 
     string algo, fileChoice;
