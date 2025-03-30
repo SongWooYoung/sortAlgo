@@ -31,7 +31,7 @@ void insert(vector<pair<int, char>>& array, size_t num, size_t* lastIndex) { // 
             while(array.at(wheretoPut).second == 'O') {
                 if (wheretoPut == *lastIndex - 1) {
                     array.insert(array.begin() + wheretoPut, make_pair(0, 'O'));
-                    *lastIndex++;
+                    *lastIndex = *lastIndex + 1;
                     break;
                 }
                 wheretoPut++;
@@ -43,6 +43,10 @@ void insert(vector<pair<int, char>>& array, size_t num, size_t* lastIndex) { // 
         }
         array.erase(array.begin() + (int)(*lastIndex));
         n--;
+        for (size_t i = 0; i < *lastIndex; i++) {
+            cout <<"(" <<array.at(i).first<< ", " << array.at(i).second << ")";
+        }
+        cout << endl;
     }
 }
 
@@ -88,10 +92,12 @@ void librarySort(vector<pair<int, char>>& array) {
             lastIndex++;
             rebalancing(array, &lastIndex);
             NumbersofNextInput  = NumbersofNextInput << 1;
+
             continue;
         }
-        if (NumbersofNextInput < lastIndex && (NumbersofNextInput<<1) > lastIndex) {
-            insert(array, (NumbersofNextInput<<1) - NumbersofNextInput, &lastIndex);
+        if (NumbersofNextInput < lastIndex && (NumbersofNextInput << 1) > lastIndex) {
+            size_t remainingInputs = array.size() - lastIndex;
+            insert(array, remainingInputs, &lastIndex);
             break;
         }
         insert(array, NumbersofNextInput, &lastIndex);
