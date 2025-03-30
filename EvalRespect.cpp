@@ -37,7 +37,7 @@ void TSort_wrapper(vector<int>& v) {
 void libSort_wrapper(vector<int>& v) {
     vector<pair<int, char>> arr;
     for (size_t i = 0; i < v.size(); i++) {
-        cout << v[i] << endl;
+        //cout << v[i] << endl;
         arr.push_back(make_pair(v[i], 'O'));
     }
     librarySort(arr);
