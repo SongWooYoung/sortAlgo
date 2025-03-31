@@ -78,13 +78,13 @@ vector<int> TSort(vector<int>& data) {
 }
 
 
-int main() {
-    vector<int> data = {10, 4, 3, 7, 9, 6, 5, 1, 100, 83, 27, 2, 11};
-    vector<int> result = TSort(data);
+// int main() {
+//     vector<int> data = {10, 4, 3, 7, 9, 6, 5, 1, 100, 83, 27, 2, 11};
+//     vector<int> result = TSort(data);
 
-    for (int i = 0 ; i < result.size(); i++) {
-        cout << result.at(i) << endl;
-    }
+//     for (int i = 0 ; i < result.size(); i++) {
+//         cout << result.at(i) << endl;
+//     }
 
-    return 0;
-}
+//     return 0;
+// }

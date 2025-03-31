@@ -7,10 +7,11 @@ using namespace std;
 // However, the limitation of array requires me to use heap memory
 // => I will use vector instead of array
 
-void insertionSort(vector<int>& array, size_t len) {
+void insertionSort(vector<int>& array) {
+    int len = (int) array.size();
     if (len == 0) return;
 
-    for (size_t i = 1; i < len; i++) {
+    for (int i = 1; i < len; i++) {
         int key = array[i];
         int j = i - 1;
 
@@ -19,13 +20,12 @@ void insertionSort(vector<int>& array, size_t len) {
             array[j + 1] = array[j];
             j--;
         }
-
         array[j + 1] = key;
     }
 }
 
 
-// void insertionSort(vector<int>& array, size_t len) { // call by reference
+// void insertionSort(vector<int>& array, int len) { // call by reference
 //     // Insertion Sort : sort the array by inserting the element into the sorted part of the array
 //     // Time Complexity : O(n^2)
 //     // Do not use online sort the array
@@ -35,7 +35,7 @@ void insertionSort(vector<int>& array, size_t len) {
 //     // finally, copy the temparray to the original array
 //     vector<int> tempArray;
 
-//     for (size_t i = 0; i < len; i++) {
+//     for (int i = 0; i < len; i++) {
 //         bool inserted = false;
 
 //         // if tempArray is empty, push
@@ -44,7 +44,7 @@ void insertionSort(vector<int>& array, size_t len) {
 //             continue;
 //         }
 
-//         for (size_t j = 0; j < tempArray.size(); j++) {
+//         for (int j = 0; j < tempArray.size(); j++) {
 //             if (array[i] < tempArray[j]) {
 //                 tempArray.insert(tempArray.begin() + j, array[i]);
 //                 inserted = true;
@@ -57,7 +57,7 @@ void insertionSort(vector<int>& array, size_t len) {
 //             tempArray.push_back(array[i]);
 //         }
 //     }
-//     for (size_t i = 0; i < len; i++) {
+//     for (int i = 0; i < len; i++) {
 //         array[i] = tempArray[i];
 //     }
 // }
