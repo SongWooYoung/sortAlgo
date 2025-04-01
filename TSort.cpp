@@ -5,7 +5,7 @@
 using namespace std;
 
 // 트리 초기화 함수 (한번만 수행)
-void buildTournamentTree(vector<int>& tree, int size) {
+void buildTTree(vector<int>& tree, int size) {
     for (int i = size - 1; i > 0; --i)
         tree[i] = min(tree[i * 2], tree[i * 2 + 1]);
 }
@@ -34,7 +34,7 @@ vector<int> TSort(vector<int>& data) {
     for (int i = 0; i < size; ++i)
         tree[size + i] = data[i];
 
-    buildTournamentTree(tree, size);
+    buildTTree(tree, size);
 
     vector<int> result;
     for (int i = 0; i < size; ++i) {
