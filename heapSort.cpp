@@ -8,20 +8,20 @@ void heapify(vector<int>& array, size_t i, size_t len) { // i must not be 0 and 
     if (i >= array.size()) return;
     
     int parent = array.at(i);                                             
-    int left = (2*i <= len ? array.at(2*i) : INT_MIN);              // it can be out of range
+    int left = (2*i <= len ? array[2*i] : INT_MIN);              // it can be out of range
     // = is for last element
-    int right = (2*i+1 <= len ? array.at(2*i+1) : INT_MIN);         // it can be out of range    
+    int right = (2*i+1 <= len ? array[2*i+1] : INT_MIN);         // it can be out of range    
     // = is for last element
 
     if (parent >= left && parent >= right) {
         return;
     }
     if (right < left) {
-        swap(array[i], array[2*i]);
+        swap(array[i],array[2*i]);
         heapify(array, 2*i, len);
     } 
     else {
-        swap(array[i], array[2*i + 1]);
+        swap(array[i], array[2*i+1]);
         heapify(array, 2*i + 1, len);
     }
 }
@@ -57,3 +57,19 @@ void heapSort(vector<int>& array) {
 
     array.erase(array.begin());
 }
+
+
+// int main() {
+
+
+//     vector<int> data = {5, 3, 8, 6, 2, 7, 4, 1, 1001,235,32,3,24,324,23,5,3,4,2,5,25,45,436,65,6,356,4,79,8,767,5,86,7,100};
+
+//     heapSort(data);
+//     for (int num : data) {
+//         cout << num << " ";
+//     }
+//     cout << endl;
+
+
+//     return 0;
+// }
