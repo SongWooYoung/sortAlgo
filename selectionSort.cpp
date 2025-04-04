@@ -23,3 +23,8 @@ void selectionSort(vector<int>& array) {
         swap(array.at(i), array.at(minIndex));
     }
 }
+
+#include "Eval.h"
+int main(int argc, char** argv) {
+    return runEvaluation("selectionSort", argc, argv, selectionSort);  // ✨ 원하는 정렬 이름만 전달
+}

@@ -3,6 +3,18 @@
 
 using namespace std;
 
+void insertionSort(vector<int>& array, int left, int right) {
+    for (int i = left + 1; i <= right; i++) {
+        int key = array[i];
+        int j = i - 1;
+        while (j >= left && array[j] > key) {
+            array[j + 1] = array[j];
+            j--;
+        }
+        array[j + 1] = key;
+    }
+}
+
 
 int partition(vector<int>& array, int p, int r) {
     // I would put the pivot in the middle of the array
@@ -35,6 +47,11 @@ int partition(vector<int>& array, int p, int r) {
 void quickSort(vector<int>& array, int p, int r) {
     // end condition
     if (p<r) {
+    if (r - p + 1 <= 10) {
+        insertionSort(array, p, r);
+        return;
+    }
+
     // Time Complexity: O(n log n) on average, O(n^2) worst case
     // I would follow the expression in CLRS 
     // 1. Divide: Partition (reaarrange the array)
@@ -47,7 +64,44 @@ void quickSort(vector<int>& array, int p, int r) {
     quickSort(array, pivotIndex+1, r);
 
     // 3. Combine: because the subarrays are realdy sorted, no work is needed to combine them
-        
     }
 }
+
+void quickSortWrapper(vector<int>& array) {
+    vector<int> tempArray(array.size());
+    quickSort(array, 0, array.size() - 1);
+}
+
+
+#include "Eval.h"
+int main(int argc, char** argv) {
+    return runEvaluation("quickSort", argc, argv, quickSortWrapper);
+}
+
+/*
+only quick
+==================== quickSort Evaluation ====================
+ListType       Iter    Time (avg ms)    Memory (avg KB)   Valid     
+--------------------------------------------------------------------
+ascending      2       97.00            9670.00           ✔️    
+descending     2       57.00            11468.00          ✔️    
+partial        2       147.50           11468.00          ✔️    
+random         2       261.50           11468.00          ✔️    
+====================================================================
+Results saved to: result/2025-04-04_quickSort_1000000.csv
+*/
+
+/*
+quick + insert
+==================== quickSort Evaluation ====================
+ListType       Iter    Time (avg ms)    Memory (avg KB)   Valid     
+--------------------------------------------------------------------
+ascending      5       37.80            10709.60          ✔️    
+descending     5       48.00            11570.40          ✔️    
+partial        5       132.20           11572.00          ✔️    
+random         5       233.00           11572.00          ✔️    
+====================================================================
+Results saved to: result/2025-04-04_quickSort_1000000.csv
+*/
+
 

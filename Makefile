@@ -8,7 +8,8 @@ LDFLAGS =
 SORT_SOURCES = bubbleSort.cpp heapSort.cpp insertionSort.cpp \
                mergeSort.cpp quickSort.cpp selectionSort.cpp \
                combSort.cpp CSSort.cpp introSort.cpp \
-               librarySort.cpp TimSort.cpp TSort.cpp
+               librarySort.cpp TimSort.cpp TSort.cpp \
+			   runBubble.cpp
 
 EVAL_SRC = Eval.cpp
 HEADERS = Eval.h

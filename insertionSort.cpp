@@ -25,6 +25,8 @@ void insertionSort(vector<int>& array) {
 }
 
 
+
+
 // void insertionSort(vector<int>& array, int len) { // call by reference
 //     // Insertion Sort : sort the array by inserting the element into the sorted part of the array
 //     // Time Complexity : O(n^2)
@@ -62,3 +64,7 @@ void insertionSort(vector<int>& array) {
 //     }
 // }
 
+#include "Eval.h"
+int main(int argc, char** argv) {
+    return runEvaluation("insertionSort", argc, argv, insertionSort);  // ✨ 원하는 정렬 이름만 전달
+}
