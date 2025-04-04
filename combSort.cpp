@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-
 using namespace std;
 
 void combSort(vector<int>& array) {
@@ -25,13 +24,8 @@ void combSort(vector<int>& array) {
     }
 }
 
+#include "Eval.h"
 
-// int main() {
-//     vector<int> data = {5, 3, 8, 6, 2, 7, 4, 1};
-//     combSort(data);
-//     for (int num : data) {
-//         cout << num << " ";
-//     }
-
-//     return 0;
-// }
+int main(int argc, char** argv) {
+    return runEvaluation("combSort", argc, argv, combSort);
+}

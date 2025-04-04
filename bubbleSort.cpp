@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include "Eval.h"
 
 using namespace std;
 void bubbleSort(vector<int>& array) { // ascending order
@@ -20,4 +21,9 @@ void bubbleSort(vector<int>& array) { // ascending order
 
     // if possible, we can reduce the number of iterations
     // because there are elemets already sorted
+}
+
+
+int main(int argc, char** argv) {
+    return runEvaluation("bubbleSort", argc, argv);  // ✨ 원하는 정렬 이름만 전달
 }

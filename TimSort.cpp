@@ -1,6 +1,9 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <chrono>
+#include <random>
+#include "Eval.h"
 
 using namespace std;
 
@@ -10,23 +13,29 @@ struct Run {
     int order; // 1: ascending, -1: descending
 };
 
-int binarySearch(vector<int>& array, int l_idx, int lim, int targetVal) {
-    while (l_idx < lim) {
-        int mid = (l_idx + lim) / 2;
-        if (array[mid] < targetVal)
-            l_idx = mid + 1;
-        else
-            lim = mid;
+int exponentialBinarySearch(vector<int>& array, int start, int limit, int targetVal) {
+    int bound = 1;
+    while (start + bound < limit && array[start + bound] < targetVal)
+        bound *= 2;
+
+    int l = start + bound / 2;
+    int r = min(start + bound, limit);
+
+    while (l < r) {
+        int mid = (l + r) / 2;
+        if (array[mid] < targetVal) l = mid + 1;
+        else                        r = mid;
     }
-    return l_idx;
+    return l;
 }
 
 int galloping(vector<int>& array, vector<int>& merged, int i, int j, int lim) {
-    if (i < j) {
-        return binarySearch(array, i, lim, array[j]);
-    }
-    return binarySearch(array, j, lim, array[i]);
+    if (i < j)
+        return exponentialBinarySearch(array, i, lim, array[j]);
+    else
+        return exponentialBinarySearch(array, j, lim, array[i]);
 }
+
 
 void merge(vector<int>& array, vector<Run>& runs, int left, int right) {
     int Lstart = runs[left].start;
@@ -154,56 +163,8 @@ vector<int> timSort(vector<int>& array) {
     return array;
 }
 
-#include <random>
-#include <chrono>
+#include "Eval.h"
 
-
-vector<int> generateRandomNumbers(int count, int minVal = 0, int maxVal = 9999) {
-    vector<int> result;
-    result.reserve(count);
-    random_device rd;
-    mt19937 gen(rd());
-    uniform_int_distribution<> dist(minVal, maxVal);
-    for (int i = 0; i < count; ++i) {
-        result.push_back(dist(gen));
-    }
-    return result;
-}
-
-int main() {
-    vector<int> data = {
-        1325, 24, 443, 53, 15, 6, 77, 7, 6, 5,
-        76, 5, 56, 6, 5, 5, 7, 6, 89, 8,
-        7, 6, 5, 44, 35346, 62, 6, 354, 35, 345
-    };
-
-    cout << "📦 입력 데이터 (" << data.size() << "개):" << endl;
-    for (int i : data) cout << i << " ";
-    cout << "\n\n";
-
-    auto start = chrono::high_resolution_clock::now();
-    vector<int> sorted = timSort(data);  // 정렬 실행
-    auto end = chrono::high_resolution_clock::now();
-
-    // 결과 출력
-    cout << "✅ 정렬 결과:" << endl;
-    for (int i : sorted) cout << i << " ";
-    cout << "\n\n";
-
-    // 정렬 성공 여부 확인
-    if (is_sorted(sorted.begin(), sorted.end())) {
-        cout << "✅ 정렬 성공!" << endl;
-    } else {
-        cout << "❌ 정렬 실패..." << endl;
-    }
-
-    // 시간 측정
-    chrono::duration<double, milli> elapsed = end - start;
-    cout << "⏱ 정렬 시간: " << elapsed.count() << " ms" << endl;
-
-    // 메모리 사용량 (단순히 vector container의 크기만 측정)
-    size_t memBytes = sorted.capacity() * sizeof(int);
-    cout << "💾 메모리 사용량: " << (memBytes / 1024.0) << " KB" << endl;
-
-    return 0;
+int main(int argc, char** argv) {
+    return runEvaluation("TimSort", argc, argv, timSort);
 }
