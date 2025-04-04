@@ -4,6 +4,25 @@
 
 using namespace std;
 
+int binarySearch(vector<int>& array, int l_idx, int lim, int targetVal) {
+    while (l_idx < lim) {
+        int mid = (l_idx + lim) / 2;
+        if (array[mid] < targetVal)
+            l_idx = mid + 1;
+        else
+            lim = mid;
+    }
+    return l_idx;
+}
+
+int galloping(vector<int>& array, vector<int>& merged, int i, int j, int lim) {
+    if (i < j){ // left -> lim = Rstart;
+        return binarySearch(array, i, lim, j);
+    }
+          // right -> lim = Mend;
+    return binarySearch(array, j, lim, i);
+}
+
 void merge(vector<int>& array, vector<int>& runNum_list, vector<int>& run_start_list, int left, int right) {
 
     cout << "runNum_list_before_merge : ";
@@ -24,16 +43,40 @@ void merge(vector<int>& array, vector<int>& runNum_list, vector<int>& run_start_
     if (Rdir == -1)
         reverse(array.begin() + Rstart, array.begin() + Mend);
 
-    
-    // need to modify: galloping
-
     vector<int> merged;
     int i = Lstart, j = Rstart;
+    int consec_L = 0, consec_R = 0;
+    
     while (i < Rstart && j < Mend) {
-        if (array[i] <= array[j]) merged.push_back(array[i++]);
-        else                      merged.push_back(array[j++]);
+        if (consec_R >= 7) {
+            int next_j = galloping(array, merged, j, i, Mend);
+            while (j < next_j) merged.push_back(array[j++]);
+            consec_L = 0;
+            consec_R = 0;
+            continue;
+        }
+
+        if (consec_L >= 7) {
+            int next_i = galloping(array, merged, i, j, Rstart);
+            while (i < next_i) merged.push_back(array[i++]);
+            consec_L = 0;
+            consec_R = 0;
+            continue;
+        }
+        if (array[i] <= array[j]) {
+            merged.push_back(array[i]);
+            consec_L++;
+            consec_R = 0;
+            i++;
+        } 
+        else if (array[i] > array[j]) {
+            merged.push_back(array[j]);
+            consec_R++;
+            consec_L = 0;
+            j++;
+        }
     }
-    while (i < Rstart) merged.push_back(array[i++]);
+    while (i < Rstart) {merged.push_back(array[i++]);}
     while (j < Mend)   merged.push_back(array[j++]);
 
     copy(merged.begin(), merged.end(), array.begin() + Lstart);
