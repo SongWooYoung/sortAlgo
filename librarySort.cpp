@@ -175,30 +175,30 @@ vector<int> generateRandomNumbers(int count, int minVal = 0, int maxVal = 9999) 
     return result;
 }
 
-int main() {
+// int main() {
     
-    vector<int> array = generateRandomNumbers(1000);
+//     vector<int> array = generateRandomNumbers(1000);
 
-    vector<pair<int, char>> arr1;
-    for (size_t i = 0; i < array.size(); i++) {
-        arr1.push_back(make_pair(array[i], 'O'));
-    }
+//     vector<pair<int, char>> arr1;
+//     for (size_t i = 0; i < array.size(); i++) {
+//         arr1.push_back(make_pair(array[i], 'O'));
+//     }
 
-    librarySort(arr1);
-    cout << arr1 << endl;
-    cout << "=================================================================================================" << endl;
+//     librarySort(arr1);
+//     cout << arr1 << endl;
+//     cout << "=================================================================================================" << endl;
 
-    vector<int> data = {
-        100, 199, 1909 , 496, 2, 3,4,5,6,6,7,9, 595, 694, 298, 793, 892, 991, 397
-    };
-    vector<pair<int, char>> arr2;
-    for (size_t i = 0; i < data.size(); i++) {
-        arr2.push_back(make_pair(data[i], 'O'));
-    }
+//     vector<int> data = {
+//         100, 199, 1909 , 496, 2, 3,4,5,6,6,7,9, 595, 694, 298, 793, 892, 991, 397
+//     };
+//     vector<pair<int, char>> arr2;
+//     for (size_t i = 0; i < data.size(); i++) {
+//         arr2.push_back(make_pair(data[i], 'O'));
+//     }
 
-    librarySort(arr2);
+//     librarySort(arr2);
 
-    cout << arr2 << endl;
+//     cout << arr2 << endl;
 
-    return 0;
-}
+//     return 0;
+// }

@@ -23,6 +23,12 @@ namespace fs = std::filesystem;
 #include "CSSort.cpp"
 #include "introSort.cpp"
 #include "librarySort.cpp"
+#include "TimSort.cpp"
+
+void timSort_wrapper(vector<int>& v) {
+    vector<int> array = timSort(v);
+    v = move(array);
+}
 
 // TSort 래퍼
 void TSort_wrapper(vector<int>& v) {
@@ -147,7 +153,8 @@ int main() {
         {"TSort", TSort_wrapper},
         {"combSort", combSort},
         {"CSSort", CSSort},
-        {"introSort", intro_wrapper}
+        {"introSort", intro_wrapper},
+        {"timSort", timSort_wrapper}
         // libSort는 별도로 처리하므로 제외
     };
 

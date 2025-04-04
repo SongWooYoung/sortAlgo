@@ -17,17 +17,17 @@ int binarySearch(vector<int>& array, int l_idx, int lim, int targetVal) {
 
 int galloping(vector<int>& array, vector<int>& merged, int i, int j, int lim) {
     if (i < j){ // left -> lim = Rstart;
-        return binarySearch(array, i, lim, j);
+        return binarySearch(array, i, lim, array[j]);
     }
           // right -> lim = Mend;
-    return binarySearch(array, j, lim, i);
+    return binarySearch(array, j, lim, array[i]);
 }
 
 void merge(vector<int>& array, vector<int>& runNum_list, vector<int>& run_start_list, int left, int right) {
 
-    cout << "runNum_list_before_merge : ";
-    for (int i : runNum_list) cout << i << " ";
-    cout << endl;
+    // cout << "runNum_list_before_merge : ";
+    // for (int i : runNum_list) cout << i << " ";
+    // cout << endl;
 
     int Llen = runNum_list[left];
     int Rlen = runNum_list[right];
@@ -64,16 +64,14 @@ void merge(vector<int>& array, vector<int>& runNum_list, vector<int>& run_start_
             continue;
         }
         if (array[i] <= array[j]) {
-            merged.push_back(array[i]);
+            merged.push_back(array[i++]);
             consec_L++;
             consec_R = 0;
-            i++;
         } 
         else if (array[i] > array[j]) {
-            merged.push_back(array[j]);
+            merged.push_back(array[j++]);
             consec_R++;
             consec_L = 0;
-            j++;
         }
     }
     while (i < Rstart) {merged.push_back(array[i++]);}
@@ -87,9 +85,9 @@ void merge(vector<int>& array, vector<int>& runNum_list, vector<int>& run_start_
     run_start_list[left / 2] = Lstart;
     run_start_list.erase(run_start_list.begin() + right / 2);
 
-    cout << "runNum_list_after_merge : ";
-    for (int i : runNum_list) cout << i << " ";
-    cout << endl;
+    // cout << "runNum_list_after_merge : ";
+    // for (int i : runNum_list) cout << i << " ";
+    // cout << endl;
 }
 
 void merge_collapse_force(vector<int>& array, vector<int>& runNum_list, vector<int>& run_start_list) {
@@ -158,18 +156,18 @@ vector<int> timSort(vector<int>& array) {
         if (elsinRun == 0) {
             run_start_list.push_back(i);
             elsinRun++;
-            cout << "current Index: " << i << endl;
+            //cout << "current Index: " << i << endl;
             continue;
         }
         if (elsinRun == 1 && order == 0) {
             order = (array[i - 1] <= array[i]) ? 1 : -1;
             elsinRun++;
-            cout << "current Index: " << i << endl;
+            //cout << "current Index: " << i << endl;
             continue;
         }
         if ((order == 1 && array[i - 1] <= array[i]) || (order == -1 && array[i - 1] > array[i])) {
             elsinRun++;
-            cout << "current Index: " << i << endl;
+            //cout << "current Index: " << i << endl;
             continue;
         }
         runNum_list.push_back(elsinRun);
@@ -178,25 +176,64 @@ vector<int> timSort(vector<int>& array) {
         elsinRun = 1;
         order = 0;
         run_start_list.push_back(i);
-        cout << "current Index: " << i << endl;
+        //cout << "current Index: " << i << endl;
 
     }
     runNum_list.push_back(elsinRun);
     runNum_list.push_back(order);
     merge_collapse(array, runNum_list, run_start_list, true);
-    cout << "runNum_list_last : ";
-    for (int i : runNum_list) cout << i << " ";
-    cout << endl;
+    // cout << "runNum_list_last : ";
+    // for (int i : runNum_list) cout << i << " ";
+    // cout << endl;
 
     merge_collapse_force(array, runNum_list, run_start_list);
 
     return array;
 }
 
-int main() {
-    vector<int> data = {1325, 24, 443, 53, 15, 6, 77, 7, 6, 5, 76, 5, 56, 6, 5, 5, 7, 6, 89, 8, 7, 6, 5, 44, 35346, 62, 6, 354, 35, 345};
-    vector<int> sorted_data = timSort(data);
-    for (int i : sorted_data) cout << i << " ";
-    cout << endl;
-    return 0;
-}
+// #include <random>
+
+
+// vector<int> generateRandomNumbers(int count, int minVal = 0, int maxVal = 9999) {
+//     vector<int> result;
+//     result.reserve(count);
+
+//     // 랜덤 엔진 및 분포 설정
+//     random_device rd;                         // 시드
+//     mt19937 gen(rd());                        // Mersenne Twister 엔진
+//     uniform_int_distribution<> dist(minVal, maxVal); // 균등 분포
+
+//     for (int i = 0; i < count; ++i) {
+//         result.push_back(dist(gen));
+//     }
+
+//     return result;
+// }
+
+
+// int main() {
+//     vector<int> data = {1325, 24, 443, 53, 15, 6, 77, 7, 6, 5, 76, 5, 56, 6, 5, 5, 7, 6, 89, 8, 7, 6, 5, 44, 35346, 62, 6, 354, 35, 345};
+//     vector<int> sorted_data = timSort(data);
+//     for (int i : sorted_data) cout << i << " ";
+//     cout << endl;
+
+//     if (is_sorted(sorted_data.begin(), sorted_data.end())) {
+//         cout << "✅ 정렬 성공!" << endl;
+//     } else {
+//         cout << "❌ 정렬 실패..." << endl;
+//     }
+
+//     cout << "===============================================================================================" << endl;
+//     vector<int> array = generateRandomNumbers(100);
+//     vector<int> sorted_array = timSort(array);
+
+//     for (int i : sorted_array) cout << i << " ";
+//     cout << endl;
+//     if (is_sorted(sorted_array.begin(), sorted_array.end())) {
+//         cout << "✅ 정렬 성공!" << endl;
+//     } else {
+//         cout << "❌ 정렬 실패..." << endl;
+//     }
+
+//     return 0;
+// }
