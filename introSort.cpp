@@ -94,16 +94,20 @@ void intro_wrapper(vector<int>& array) {
     introSort(array, 0, array.size() - 1, maxDepth);
 }
 
-// int main() {
-//     //
+#include "Eval.h"
 
-//     vector<int> data = {5, 3, 8, 6, 2, 7, 4, 1, 1001,235,32,3,24,324,23,5,3,4,2,5,25,45,436,65,6,356,4,79,8,767,5,86,7,100};
+int main(int argc, char** argv) {
+    return runEvaluation("introSort", argc, argv, intro_wrapper);
+}
 
-//     intro_wrapper(data);
-//     for (int num : data) {
-//         cout << num << " ";
-//     }
-//     cout << endl;
-
-//     return 0;
-// }
+/*
+==================== introSort Evaluation ====================
+ListType       Iter    Time (avg ms)    Memory (avg KB)   Valid     
+--------------------------------------------------------------------
+ascending      3       39.67            7677.33           ✔️    
+descending     3       47.33            7752.00           ✔️    
+partial        3       150.00           7752.00           ✔️    
+random         3       229.00           7752.00           ✔️    
+====================================================================
+Results saved to: result/2025-04-05_introSort_1000000.csv
+*/

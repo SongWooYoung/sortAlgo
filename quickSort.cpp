@@ -73,10 +73,10 @@ void quickSortWrapper(vector<int>& array) {
 }
 
 
-#include "Eval.h"
-int main(int argc, char** argv) {
-    return runEvaluation("quickSort", argc, argv, quickSortWrapper);
-}
+// #include "Eval.h"
+// int main(int argc, char** argv) {
+//     return runEvaluation("quickSort", argc, argv, quickSortWrapper);
+// }
 
 /*
 only quick
