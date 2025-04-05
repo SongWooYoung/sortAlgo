@@ -56,13 +56,8 @@ vector<int> TSort(vector<int>& data) {
     return result;
 }
 
-// // 테스트용 메인
-// int main() {
-//     vector<int> data = {10, 4, 3, 7, 9, 6, 5, 1, 100, 83, 27, 2, 11};
-//     vector<int> result = TSort(data);
+#include "Eval.h"
 
-//     for (int x : result)
-//         cout << x << " ";
-//     cout << endl;
-//     return 0;
-// }
+int main(int argc, char** argv) {
+    return runEvaluation("Tournament Sort", argc, argv, TSort);
+}
