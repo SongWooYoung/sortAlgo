@@ -1,16 +1,17 @@
 #include <iostream>
 #include <vector>
 #include <climits>
+#include "Eval.h"
 
 using namespace std;
 
-// 트리 초기화 함수 (한번만 수행)
+// 트리 초기화 함수
 void buildTTree(vector<int>& tree, int size) {
     for (int i = size - 1; i > 0; --i)
         tree[i] = min(tree[i * 2], tree[i * 2 + 1]);
 }
 
-// 값 갱신 함수 (최솟값 제거 후 트리 업데이트)
+// 값 갱신 함수
 void updateTree(vector<int>& tree, int index) {
     tree[index] = INT_MAX;
     while (index > 1) {
@@ -19,17 +20,17 @@ void updateTree(vector<int>& tree, int index) {
     }
 }
 
-// 토너먼트 정렬 메인 함수
+// 토너먼트 정렬 함수
 vector<int> TSort(vector<int>& data) {
     int originalLen = data.size();
     int size = 1;
-    while (size < originalLen) size *= 2; // 2의 거듭제곱으로 맞춤
+    while (size < originalLen) size *= 2;
 
     // 패딩 추가
     for (int i = data.size(); i < size; ++i)
         data.push_back(INT_MAX);
 
-    // 트리 구성 (인덱스 1 ~ 2*size)
+    // 트리 구성
     vector<int> tree(2 * size);
     for (int i = 0; i < size; ++i)
         tree[size + i] = data[i];
@@ -37,26 +38,29 @@ vector<int> TSort(vector<int>& data) {
     buildTTree(tree, size);
 
     vector<int> result;
-    for (int i = 0; i < size; ++i) {
-        result.push_back(tree[1]); // 현재 최소값 추가
+    for (int i = 0; i < originalLen; ++i) {
+        int minVal = tree[1];
+        result.push_back(minVal);
 
-        // 최소값 위치 찾기
+        // 최소값 인덱스 추적
         int idx = 1;
         while (idx < size) {
-            if (tree[2 * idx] == tree[idx]) idx = 2 * idx;
-            else idx = 2 * idx + 1;
+            if (tree[2 * idx] == tree[idx])
+                idx = 2 * idx;
+            else
+                idx = 2 * idx + 1;
         }
-        updateTree(tree, idx); // 해당 인덱스를 제거
+        int dataIndex = idx - size;
+
+        // 실제 데이터와 트리 모두 무효화
+        data[dataIndex] = INT_MAX;
+        updateTree(tree, idx);
     }
 
-    // 패딩 제거
-    while (result.size() > originalLen)
-        result.pop_back();
-
-    return result;
+    // 결과 복사
+    data = result;
+    return data;
 }
-
-#include "Eval.h"
 
 int main(int argc, char** argv) {
     return runEvaluation("Tournament Sort", argc, argv, TSort);

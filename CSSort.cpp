@@ -127,7 +127,7 @@ Results saved to: result/2025-04-05_CSSort_10000.csv
 */
 
 /*
-
+descending 추가가
 ==================== CSSort Evaluation ====================
 ListType       Iter    Time (avg ms)    Memory (avg KB)   Valid     
 --------------------------------------------------------------------

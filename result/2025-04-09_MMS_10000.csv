@@ -1,0 +1,13 @@
+ListType,Iteration,Duration(ms),Memory(KB)
+ascending,1,93,2020
+ascending,2,89,2020
+ascending,3,90,2020
+descending,1,94,2020
+descending,2,89,2020
+descending,3,89,2020
+partial,1,110,2020
+partial,2,93,2020
+partial,3,90,2020
+random,1,95,2020
+random,2,104,2020
+random,3,117,2020

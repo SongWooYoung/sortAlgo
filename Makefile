@@ -28,8 +28,7 @@ all: $(BINARIES)
 clean:
 	@echo "🧹 Cleaning all binaries and object files..."
 	@rm -f $(BINARIES) *.o *.out core
-
 coreclean:
-	@echo "🧼 Removing files matching '*Sort*' but not '*.cpp'..."
-	@find . -type f -name '*Sort*' ! -name '*.cpp' -exec rm -v {} \;
+	@echo "🧼 Removing files matching '*Sort*' but not '*.cpp' or '*.csv'..."
+	@find . -type f -name '*Sort*' ! -name '*.cpp' ! -name '*.csv' -exec rm -v {} \;
 

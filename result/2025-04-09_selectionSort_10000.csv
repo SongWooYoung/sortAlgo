@@ -1,0 +1,13 @@
+ListType,Iteration,Duration(ms),Memory(KB)
+ascending,1,177,2136
+ascending,2,175,2136
+ascending,3,177,2136
+descending,1,288,2136
+descending,2,281,2136
+descending,3,289,2136
+partial,1,230,2136
+partial,2,276,2136
+partial,3,346,2136
+random,1,385,2136
+random,2,388,2136
+random,3,430,2136

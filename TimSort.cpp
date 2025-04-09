@@ -13,21 +13,31 @@ struct Run {
     int order; // 1: ascending, -1: descending
 };
 
-void insertionSort(vector<int>& array, int left, int right) {
-    for (int i = left + 1; i <= right; i++) {
-        int key = array[i];
-        int j = i - 1;
-        while (j >= left && array[j] > key) {
-            array[j + 1] = array[j];
-            j--;
+int binarySearchPosition(const vector<int>& arr, int key, int left, int right) {
+    while (left < right) {
+        int mid = (left + right) / 2;
+        if (arr[mid] <= key)
+            left = mid + 1;
+        else
+            right = mid;
+    }
+    return left;
+}
+
+void binaryInsertionSort(vector<int>& arr, int left, int right) {
+    for (int i = left + 1; i <= right; ++i) {
+        int key = arr[i];
+        int pos = binarySearchPosition(arr, key, left, i);
+        for (int j = i; j > pos; --j) {
+            arr[j] = arr[j - 1];
         }
-        array[j + 1] = key;
+        arr[pos] = key;
     }
 }
 
 void extend_run_with_insertion(vector<int>& array, int start, int min_run_len) {
     int end = min((int)array.size() - 1, start + min_run_len - 1);
-    insertionSort(array, start, end);
+    binaryInsertionSort(array, start, end);
 }
 
 int exponentialBinarySearch(vector<int>& array, int start, int limit, int targetVal) {
@@ -161,6 +171,7 @@ int computeMinRun(int n) {
 vector<int> timSort(vector<int>& array) {
 
     int MIN_MERGE = computeMinRun((int) array.size());
+    //int MIN_MERGE = 32;
 
     vector<Run> runs;
     int len = array.size();
@@ -295,3 +306,54 @@ random         10      346.60           11808.00          ✔️
 ====================================================================
 Results saved to: result/2025-04-05_TimSort_1000000.csv
 */
+
+/*
+binary insertion Sort
+==================== TimSort Evaluation ====================
+ListType       Iter    Time (avg ms)    Memory (avg KB)   Valid     
+--------------------------------------------------------------------
+ascending      10      5.00             11096.40          ✔️    
+descending     10      17.50            11503.60          ✔️    
+partial        10      215.30           11572.00          ✔️    
+random         10      496.80           11572.00          ✔️    
+====================================================================
+Results saved to: result/2025-04-05_TimSort_1000000.csv
+*/
+
+/*
+천만개 - insertion
+==================== TimSort Evaluation ====================
+ListType       Iter    Time (avg ms)    Memory (avg KB)   Valid     
+--------------------------------------------------------------------
+ascending      5       52.20            42895.20          ✔️    
+descending     5       199.00           42896.00          ✔️    
+partial        5       4268.80          60427.20          ✔️    
+random         5       9389.00          62772.80          ✔️    
+====================================================================
+Results saved to: result/2025-04-05_TimSort_10000000.csv
+
+천만개 binary insertion
+==================== TimSort Evaluation ====================
+ListType       Iter    Time (avg ms)    Memory (avg KB)   Valid     
+--------------------------------------------------------------------
+ascending      5       46.60            42915.20          ✔️    
+descending     5       185.80           42956.00          ✔️    
+partial        5       3275.40          60535.20          ✔️    
+random         5       7404.00          62844.80          ✔️    
+====================================================================
+Results saved to: result/2025-04-05_TimSort_10000000.csv
+*/
+
+/*
+dynamic - 천만만
+==================== TimSort Evaluation ====================
+ListType       Iter    Time (avg ms)    Memory (avg KB)   Valid     
+--------------------------------------------------------------------
+ascending      5       34.00            42923.20          ✔️    
+descending     5       121.40           42964.00          ✔️    
+partial        5       1832.00          66540.00          ✔️    
+random         5       3399.00          72236.00          ✔️    
+====================================================================
+Results saved to: result/2025-04-06_TimSort_10000000.csv
+*/
+

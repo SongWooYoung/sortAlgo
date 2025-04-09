@@ -9,10 +9,8 @@ struct element {
     bool ishere;
 };
 
-// binarySearch (lower_bound + 빈칸 선형 보정)
 int binarySearch(const vector<element>& result, int input, int resultLen) {
     int left = 0, right = resultLen;
-
     while (left < right) {
         int mid = (left + right) / 2;
         int realMid = mid;
@@ -44,11 +42,9 @@ int binarySearch(const vector<element>& result, int input, int resultLen) {
             right = mid;
         }
     }
-
     return left;
 }
 
-// 주변 빈칸 탐색
 int SearchingEmpty(vector<element>& result, int cur_idx, int resultLen) {
     int left = cur_idx - 1, right = cur_idx + 1;
     while (left >= 0 && right < resultLen) {
@@ -67,19 +63,20 @@ int SearchingEmpty(vector<element>& result, int cur_idx, int resultLen) {
     return -1;
 }
 
-// 삽입 함수
-void insert(vector<int>& array, vector<element>& result, int& array_ptr, int insertCount, int resultLen) {
+bool insert(vector<int>& array, vector<element>& result, int& array_ptr, int insertCount, int resultLen, int& tailInsertCount) {
     int count = 0;
     while (array_ptr < array.size() && count < insertCount) {
         int input = array[array_ptr];
         int cur_idx = binarySearch(result, input, resultLen);
         if (cur_idx == resultLen) cur_idx--;
 
+        if (cur_idx >= resultLen * 0.9) tailInsertCount++;
+
         if (!result[cur_idx].ishere) {
             result[cur_idx] = {input, true};
         } else {
             int empty = SearchingEmpty(result, cur_idx, resultLen);
-            if (empty == -1) return; // 공간이 없다면 skip
+            if (empty == -1) return false;
 
             if (input < result[cur_idx].num) {
                 if (empty < cur_idx) {
@@ -110,10 +107,18 @@ void insert(vector<int>& array, vector<element>& result, int& array_ptr, int ins
         array_ptr++;
         count++;
     }
+    return true;
 }
 
-// rebalance 함수
-void rebalance(vector<element>& result, int& resultLen) {
+void rebalance(vector<element>& result, int& resultLen, int insertCount, int tailInsertCount) {
+    float ratio = (float)tailInsertCount / insertCount;
+    if (ratio > 0.85) {
+        int extra = resultLen / 2 + 1;
+        result.resize(resultLen + extra, {INT_MIN, false});
+        resultLen += extra;
+        return;
+    }
+
     int newLen = resultLen * 2 + 1;
     if ((int)result.size() < newLen) {
         result.resize(newLen, {INT_MIN, false});
@@ -129,11 +134,9 @@ void rebalance(vector<element>& result, int& resultLen) {
             result[i]         = {INT_MIN, false};
         }
     }
-
     resultLen = newLen;
 }
 
-// 빈빈칸 제거 후 결과 복사
 void deleteBlanks(const vector<element>& result, vector<int>& array) {
     array.clear();
     for (const auto& e : result) {
@@ -141,35 +144,45 @@ void deleteBlanks(const vector<element>& result, vector<int>& array) {
     }
 }
 
-// 메인 Library Sort
 void librarySort(vector<int>& array) {
     if (array.empty()) return;
-    vector<element> result(array.size() * 2); // 충분한 초기 크기
+    vector<element> result(array.size() * 2);
     result[0] = {array[0], true};
 
     int insertCount = 1;
     int array_ptr = 1;
     int resultLen = 1;
 
-    rebalance(result, resultLen);
+    rebalance(result, resultLen, 1, 0);
     insertCount *= 2;
 
     while (insertCount < (int)array.size()) {
-        insert(array, result, array_ptr, insertCount, resultLen);
-        rebalance(result, resultLen);
+        int tailInsertCount = 0;
+        insert(array, result, array_ptr, insertCount, resultLen, tailInsertCount);
+        rebalance(result, resultLen, insertCount, tailInsertCount);
         insertCount *= 2;
     }
 
     int remain = array.size() - insertCount / 2;
-    insert(array, result, array_ptr, remain, resultLen);
+    int dummy = 0;
+    insert(array, result, array_ptr, remain, resultLen, dummy);
 
     deleteBlanks(result, array);
 }
-
-
 
 #include "Eval.h"
 int main(int argc, char** argv) {
     return runEvaluation("library Sort", argc, argv, librarySort);
 }
 
+/*
+==================== library Sort Evaluation ====================
+ListType       Iter    Time (avg ms)    Memory (avg KB)   Valid     
+--------------------------------------------------------------------
+ascending      1       9741.00          4096.00           ✔️    
+descending     1       8185.00          5780.00           ✔️    
+partial        1       4196.00          8876.00           ✔️    
+random         1       49.00            8876.00           ✔️    
+====================================================================
+Results saved to: result/2025-04-06_library Sort_100000.csv
+*/
