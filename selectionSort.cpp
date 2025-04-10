@@ -10,11 +10,11 @@ void selectionSort(vector<int>& array) {
     // Time Complexity : O(n^2)
     // find the minimun element in the unsorted part
     // swap the minimum element with the first element in the unsorted part
-    size_t len = array.size();
-    for (size_t i = 0 ; i < len-1; i++) { // lotaiton number;
+    int len = (int) array.size();
+    for (int i = 0 ; i < len-1; i++) { // lotaiton number;
         int min = INT_MAX;
-        size_t minIndex;
-        for (size_t j = i; j < len; j++) {
+        int minIndex;
+        for (int j = i; j < len; j++) {
             if (array.at(j) < min) {
                 min = array.at(j);
                 minIndex = j;

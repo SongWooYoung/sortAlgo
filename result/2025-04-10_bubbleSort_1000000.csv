@@ -1,0 +1,17 @@
+ListType,Iteration,Duration(ms),Memory(KB)
+ascending,1,1,8204
+ascending,2,1,7764
+ascending,3,1,7764
+ascending,4,1,7764
+ascending,5,1,7764
+ascending,6,2,7764
+ascending,7,1,7764
+ascending,8,1,7764
+ascending,9,1,7764
+ascending,10,1,7764
+descending,1,4355863,7764
+descending,2,4362614,7764
+descending,3,4354233,7764
+descending,4,4354765,7764
+descending,5,4356911,7764
+descending,6,4345279,7764

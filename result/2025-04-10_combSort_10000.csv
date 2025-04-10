@@ -1,0 +1,5 @@
+ListType,Iteration,Duration(ms),Memory(KB)
+ascending,1,0,2020
+descending,1,0,2020
+partial,1,1,2020
+random,1,1,2020

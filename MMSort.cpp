@@ -7,15 +7,15 @@
 using namespace std;
 
 void minMaxSelectionSort(vector<int>& array) {
-    size_t left = 0;
-    size_t right = array.size() - 1;
+    int left = 0;
+    int right = (int) array.size() - 1;
 
     while (left < right) {
-        size_t minIndex = left;
-        size_t maxIndex = left;
+        int minIndex = left;
+        int maxIndex = left;
 
         // Find both min and max in current range
-        for (size_t i = left; i <= right; i++) {
+        for (int i = left; i <= right; i++) {
             if (array[i] < array[minIndex]) minIndex = i;
             if (array[i] > array[maxIndex]) maxIndex = i;
         }
@@ -53,4 +53,17 @@ partial        3       97.67            2020.00           ✔️
 random         3       105.33           2020.00           ✔️    
 ====================================================================
 Results saved to: result/2025-04-09_MMS_10000.csv
+*/
+
+/*
+==================== MMS Evaluation ====================
+ListType       Iter    Time (avg ms)    Memory (avg KB)   Valid     
+--------------------------------------------------------------------
+ascending      1       22088.00         4100.00           ✔️    
+descending     1       23419.00         4132.00           ✔️    
+partial        1       20902.00         4132.00           ✔️    
+random         1       20074.00         4132.00           ✔️    
+====================================================================
+Results saved to: result/2025-04-09_MMS_100000.csv
+
 */

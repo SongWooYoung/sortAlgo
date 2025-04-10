@@ -65,3 +65,20 @@ vector<int> TSort(vector<int>& data) {
 int main(int argc, char** argv) {
     return runEvaluation("Tournament Sort", argc, argv, TSort);
 }
+
+
+/*
+
+*/
+
+/*
+==================== Tournament Sort Evaluation (size=1000000) ====================
+ListType       Iter    Time (avg ms)    Memory (avg KB)   Valid     
+--------------------------------------------------------------------
+ascending      10      206.30           21993.20          ✔️    
+descending     10      201.60           26146.00          ✔️    
+partial        10      294.20           26136.00          ✔️    
+random         10      378.80           26136.00          ✔️    
+====================================================================
+Results saved to: result/2025-04-10_Tournament Sort_1000000.csv
+*/

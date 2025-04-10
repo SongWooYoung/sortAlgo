@@ -170,8 +170,9 @@ int computeMinRun(int n) {
 
 vector<int> timSort(vector<int>& array) {
 
-    int MIN_MERGE = computeMinRun((int) array.size());
-    //int MIN_MERGE = 32;
+    //int MIN_MERGE = computeMinRun((int) array.size());
+    //int MIN_MERGE = 51;
+    int MIN_MERGE = 64;
 
     vector<Run> runs;
     int len = array.size();
@@ -294,18 +295,6 @@ Results saved to: result/2025-04-05_TimSort_1000000.csv
 // why it works well on the min merge 2 to the power of n??
 // => I found the reason on Timsort paper-> https://github.com/python/cpython/blob/main/Objects/listsort.txt line 271
 
-/*
-Dinamic Min Merge => 큰 차이는 없는듯..? 데이터가 작아서 그럴수도도
-==================== TimSort Evaluation ====================
-ListType       Iter    Time (avg ms)    Memory (avg KB)   Valid     
---------------------------------------------------------------------
-ascending      10      4.70             11103.20          ✔️    
-descending     10      14.60            11738.40          ✔️    
-partial        10      175.10           11808.00          ✔️    
-random         10      346.60           11808.00          ✔️    
-====================================================================
-Results saved to: result/2025-04-05_TimSort_1000000.csv
-*/
 
 /*
 binary insertion Sort
@@ -344,16 +333,81 @@ random         5       7404.00          62844.80          ✔️
 Results saved to: result/2025-04-05_TimSort_10000000.csv
 */
 
+
 /*
-dynamic - 천만만
-==================== TimSort Evaluation ====================
+==================== TimSort Evaluation (size=1000000) ====================
 ListType       Iter    Time (avg ms)    Memory (avg KB)   Valid     
 --------------------------------------------------------------------
-ascending      5       34.00            42923.20          ✔️    
-descending     5       121.40           42964.00          ✔️    
-partial        5       1832.00          66540.00          ✔️    
-random         5       3399.00          72236.00          ✔️    
+ascending      10      2.90             11004.40          ✔️    
+descending     10      11.50            11487.20          ✔️    
+partial        10      154.00           11556.00          ✔️    
+random         10      278.10           11556.00          ✔️    
 ====================================================================
-Results saved to: result/2025-04-06_TimSort_10000000.csv
+Results saved to: result/2025-04-10_TimSort_1000000.csv
 */
 
+/*
+MINMERGE 64 + bestperformance of computer
+==================== TimSort Evaluation (size=10000000) ====================
+ListType       Iter    Time (avg ms)    Memory (avg KB)   Valid     
+--------------------------------------------------------------------
+ascending      5       31.20            42943.20          ✔️    
+descending     5       129.20           42984.00          ✔️    
+partial        5       1724.00          64556.00          ✔️    
+random         5       3398.60          68212.00          ✔️    
+====================================================================
+Results saved to: result/2025-04-10_TimSort_10000000.csv
+*/
+
+/*
+MINMERGE 32 + bestperformance of computer
+==================== TimSort Evaluation (size=10000000) ====================
+ListType       Iter    Time (avg ms)    Memory (avg KB)   Valid     
+--------------------------------------------------------------------
+ascending      5       31.20            42959.20          ✔️    
+descending     5       127.60           43084.00          ✔️    
+partial        5       1719.80          61235.20          ✔️    
+random         5       3357.60          67948.00          ✔️    
+====================================================================
+Results saved to: result/2025-04-10_TimSort_10000000.csv
+
+*/
+
+/*
+MINMERGE Dynamic + bestperformance of computer
+==================== TimSort Evaluation (size=10000000) ====================
+ListType       Iter    Time (avg ms)    Memory (avg KB)   Valid     
+--------------------------------------------------------------------
+ascending      5       30.40            42859.20          ✔️    
+descending     5       119.80           42860.00          ✔️    
+partial        5       1651.80          53257.60          ✔️    
+random         5       3316.40          62652.80          ✔️    
+====================================================================
+Results saved to: result/2025-04-10_TimSort_10000000.csv
+*/
+
+/*
+MINMERGE 48 + bestperformance of computer
+==================== TimSort Evaluation (size=10000000) ====================
+ListType       Iter    Time (avg ms)    Memory (avg KB)   Valid     
+--------------------------------------------------------------------
+ascending      5       32.60            42871.20          ✔️    
+descending     5       124.80           42988.00          ✔️    
+partial        5       1763.00          59900.80          ✔️    
+random         5       3333.40          68864.00          ✔️    
+====================================================================
+Results saved to: result/2025-04-10_TimSort_10000000.csv
+*/
+
+/*
+MINMERGE 51 + bestperformance of computer
+==================== TimSort Evaluation (size=10000000) ====================
+ListType       Iter    Time (avg ms)    Memory (avg KB)   Valid     
+--------------------------------------------------------------------
+ascending      5       31.40            42815.20          ✔️    
+descending     5       124.60           43064.00          ✔️    
+partial        5       1748.40          63494.40          ✔️    
+random         5       3345.80          69176.00          ✔️    
+====================================================================
+Results saved to: result/2025-04-10_TimSort_10000000.csv
+*/

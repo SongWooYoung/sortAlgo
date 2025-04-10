@@ -68,3 +68,28 @@ void insertionSort(vector<int>& array) {
 int main(int argc, char** argv) {
     return runEvaluation("insertionSort", argc, argv, insertionSort);  // ✨ 원하는 정렬 이름만 전달
 }
+
+/*
+==================== insertionSort Evaluation (size=100000) ====================
+ListType       Iter    Time (avg ms)    Memory (avg KB)   Valid     
+--------------------------------------------------------------------
+ascending      10      0.00             4290.40           ✔️    
+descending     10      14698.50         4288.00           ✔️    
+partial        10      5392.00          4288.00           ✔️    
+random         10      7133.80          4288.00           ✔️    
+====================================================================
+Results saved to: result/2025-04-10_insertionSort_100000.csv
+*/
+
+
+/*
+==================== insertionSort Evaluation (size=1000000) ====================
+ListType       Iter    Time (avg ms)    Memory (avg KB)   Valid     
+--------------------------------------------------------------------
+ascending      10      2.90             7749.60           ✔️    
+descending     10      1410074.00       7768.00           ✔️    
+partial        10      515323.90        7768.00           ✔️    
+random         10      695550.80        7768.00           ✔️    
+====================================================================
+Results saved to: result/2025-04-10_insertionSort_1000000.csv
+*/

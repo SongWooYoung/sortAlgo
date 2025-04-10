@@ -73,10 +73,10 @@ void quickSortWrapper(vector<int>& array) {
 }
 
 
-// #include "Eval.h"
-// int main(int argc, char** argv) {
-//     return runEvaluation("quickSort", argc, argv, quickSortWrapper);
-// }
+#include "Eval.h"
+int main(int argc, char** argv) {
+    return runEvaluation("quickSort", argc, argv, quickSortWrapper);
+}
 
 /*
 only quick
@@ -103,5 +103,3 @@ random         5       233.00           11572.00          ✔️
 ====================================================================
 Results saved to: result/2025-04-04_quickSort_1000000.csv
 */
-
-
