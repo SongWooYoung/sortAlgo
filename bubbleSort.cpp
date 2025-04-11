@@ -63,3 +63,15 @@ void bubbleSort(vector<int>& array) { // ascending order
 int main(int argc, char** argv) {
     return runEvaluation("bubbleSort", argc, argv, bubbleSort);  // ✨ 원하는 정렬 이름만 전달
 }
+
+/*
+==================== bubbleSort Evaluation (size=1000000) ====================
+ListType       Iter    Time (avg ms)    Memory (avg KB)   Valid     
+--------------------------------------------------------------------
+ascending      10      1.30             7728.00           ✔️    
+descending     10      4464868.70       7740.00           ✔️    
+partial        10      3053618.00       7740.00           ✔️    
+random         10      4414500.20       7740.00           ✔️    
+====================================================================
+Results saved to: result/2025-04-10_bubbleSort_1000000.csv
+*/
