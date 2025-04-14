@@ -70,7 +70,7 @@ int SearchingEmpty(vector<element>& result, int cur_idx, int resultLen) {
 // 삽입 함수
 void insert(vector<int>& array, vector<element>& result, int& array_ptr, int insertCount, int resultLen) {
     int count = 0;
-    while (array_ptr < array.size() && count < insertCount) {
+    while ( array_ptr < (int) array.size() && count < insertCount) {
         int input = array[array_ptr];
         int cur_idx = binarySearch(result, input, resultLen);
         if (cur_idx == resultLen) cur_idx--;
