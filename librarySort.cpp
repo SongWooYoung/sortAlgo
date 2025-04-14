@@ -9,7 +9,7 @@ struct element {
     bool ishere;
 };
 
-// binarySearch (lower_bound + 빈칸 선형 보정)
+// binarySearch (lower_bound)
 int binarySearch(const vector<element>& result, int input, int resultLen) {
     int left = 0, right = resultLen;
 
