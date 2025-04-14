@@ -175,3 +175,14 @@ int main(int argc, char** argv) {
 
 
 
+/*
+==================== library Sort Evaluation (size=100000) ====================
+ListType       Iter    Time (avg ms)    Memory (avg KB)   Valid     
+--------------------------------------------------------------------
+ascending      10      8112.00          7309.60           ✔️    
+descending     10      7979.80          7660.00           ✔️    
+partial        10      3114.90          7660.00           ✔️    
+random         10      68.70            7660.00           ✔️    
+====================================================================
+Results saved to: result/2025-04-14_library Sort_100000.csv
+*/

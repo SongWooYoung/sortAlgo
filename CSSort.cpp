@@ -93,7 +93,6 @@ void CSSort(vector<int>& array) {
 }
 
 
-
 #include "Eval.h"
 
 int main(int argc, char** argv) {
